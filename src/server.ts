@@ -1,17 +1,29 @@
 import fastify from 'fastify'
 import { knex } from './database'
+import { env } from './env'
 
 const app = fastify()
 
 app.get('/hello', async () => {
-  const tables = await knex('sqlite_schema').select('*') // busca todos os dados da tabela sqlite_schema
+  const transaction = await knex('transactions')
+    .select('*')
+    .where('amount', 100)
+  /*
+    .insert({
+      id: crypto.randomUUID(),
+      title: 'Transação de teste',
+      amount: 1000,
+      // session_id: crypto.randomUUID(),
+    })
+    .returning('*')
 
-  return tables
+    */
+  return transaction
 })
 
 app
   .listen({
-    port: 3333,
+    port: env.PORT,
   })
   .then(() => {
     console.log('Server on 🌐')
