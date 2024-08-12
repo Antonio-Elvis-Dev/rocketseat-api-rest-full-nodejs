@@ -57,8 +57,6 @@ describe('Transactions routes', () => {
       // id: expect.any(String),
       // },
     ])
-
-    console.log(listTransactionsResponse.body)
   })
 
   test('user can list specific transaction', async () => {
@@ -117,7 +115,6 @@ describe('Transactions routes', () => {
       .set('Cookie', cookies)
       .expect(200)
 
-    console.log(summaryResponse)
     expect(summaryResponse.body.summary).toEqual({
       amount: 2000,
     })
